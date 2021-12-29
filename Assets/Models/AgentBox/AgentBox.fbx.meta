@@ -15,7 +15,32 @@ ModelImporter:
   - first:
       74: -7011972772990464386
     second: Bones|Walk
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Box
+    second: {fileID: 2100000, guid: 6de46888df7cf4874b7949280e80e8c0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PrimaryCharacter
+    second: {fileID: 2100000, guid: 976f94a6828aa4fc289def853038992e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SecondaryCharacter
+    second: {fileID: 2100000, guid: e1268a94a6be84e87b9ca27920b81aa8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tape
+    second: {fileID: 2100000, guid: 3fdea7008da3e4602b491942f829f5af, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TertiaryCharacter
+    second: {fileID: 2100000, guid: 0904d02a0fc7b4f5f80e37d452bd9412, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -172,7 +197,7 @@ ModelImporter:
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager : MonoBehaviour
+public class InputManager : Singleton<InputManager>
 {
-    #region Singleton
-        public static InputManager instance;
-
-        void Awake() 
-        {
-            instance = this;
-            if(controls == null) { controls = new PlayerControls(); }
-        }
-    #endregion
-
     private PlayerControls controls;
+
+    override public void Awake() 
+    {
+        base.Awake();
+        if(controls == null) { controls = new PlayerControls(); }
+    }
 
     public PlayerControls Controls
     {

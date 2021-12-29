@@ -22,9 +22,10 @@ public class PlayerMovement : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
 
         // Assign input controls to player movement.
-        InputManager.instance.Controls.Player.Move.performed+= ctx => Move(ctx.ReadValue<Vector2>());
-        InputManager.instance.Controls.Player.Move.canceled += ctx => Stop();
-        InputManager.instance.Controls.Player.Run.performed += ctx => ToggleRun();
+        InputManager.Instance.Controls.Player.Move.performed+= ctx => Move(ctx.ReadValue<Vector2>());
+        InputManager.Instance.Controls.Player.Move.canceled += ctx => Stop();
+        InputManager.Instance.Controls.Player.Run.performed += ctx => Run();
+        InputManager.Instance.Controls.Player.Run.canceled += ctx => Walk();
     }
 
     void LateUpdate() {
@@ -49,6 +50,16 @@ public class PlayerMovement : MonoBehaviour
     void ToggleRun()
     {
         isRunning = !isRunning;
+    }
+
+    void Run()
+    {
+        isRunning = true;
+    }
+
+    void Walk()
+    {
+        isRunning = false;
     }
     
     public float Speed
