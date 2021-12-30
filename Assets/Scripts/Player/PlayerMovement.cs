@@ -7,9 +7,9 @@ using UnityEngine.AI;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    float walkingSpeed = 3f; // Half of runningSpeed for best animation.
+    float walkingSpeed = 2.25f; // Half of runningSpeed for best animation.
     [SerializeField]
-    float runningSpeed = 6f;
+    float runningSpeed = 10f;
 
     NavMeshAgent agent;
     bool canMove = true;

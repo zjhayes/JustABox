@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 1089935815517027482}
   - component: {fileID: 1089935815517027481}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: Bunker_Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!4 &1089935815517027476
 Transform:
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a75fe2e55fdf042cfbd46556e976727c, type: 2}
+  - {fileID: 2100000, guid: 1e69c1a4d32af4e49907d3871e5d0865, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
