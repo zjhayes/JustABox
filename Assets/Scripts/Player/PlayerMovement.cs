@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
+using Cinemachine;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class PlayerMovement : MonoBehaviour
@@ -10,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     float walkingSpeed = 2.25f; // Half of runningSpeed for best animation.
     [SerializeField]
     float runningSpeed = 10f;
+    [SerializeField]
+    CinemachineBrain cameraBrain;
 
     NavMeshAgent agent;
     bool canMove = true;
@@ -17,19 +18,66 @@ public class PlayerMovement : MonoBehaviour
     float moveVerticle = 0.0f;
     float moveHorizontal = 0.0f;
 
+    bool firstPerson = false;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
 
         // Assign input controls to player movement.
-        InputManager.Instance.Controls.Player.Move.performed+= ctx => Move(ctx.ReadValue<Vector2>());
+        InputManager.Instance.Controls.Player.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
         InputManager.Instance.Controls.Player.Move.canceled += ctx => Stop();
         InputManager.Instance.Controls.Player.Run.performed += ctx => Run();
         InputManager.Instance.Controls.Player.Run.canceled += ctx => Walk();
+
+        InputManager.Instance.Controls.Player.Camera.performed += _ => SwitchView();
     }
 
-    void LateUpdate() {
+    void LateUpdate()
+    {
+        Debug.Log(agent.remainingDistance);
+        if(!firstPerson)
+        {
+            MoveThirdPerson();
+        }
+        else
+        {
+            MoveFirstPerson();
+        }
+    }
+
+    // TO DO: Replace with listener
+    void SwitchView()
+    {
+        firstPerson = !firstPerson;
+    }
+
+    void MoveThirdPerson()
+    {
         Vector3 movement = new Vector3(moveHorizontal, 0f, moveVerticle);
+        Vector3 moveDestination = transform.position + movement;
+        agent.speed = this.Speed;
+        agent.destination = moveDestination;
+    }
+
+    void MoveFirstPerson()
+    {
+        // Get currently active camera. TO DO: Set with listener. Get from game manager.
+        CinemachineStateDrivenCamera cameraDriver = (CinemachineStateDrivenCamera) cameraBrain.ActiveVirtualCamera;
+        CinemachineVirtualCamera camera = (CinemachineVirtualCamera) cameraDriver.LiveChild;
+        var forward = camera.Follow.forward;
+        var right = camera.Follow.right;
+ 
+        // Project forward and right vectors on the horizontal plane (y = 0).
+        forward.y = 0f;
+        right.y = 0f;
+        forward.Normalize();
+        right.Normalize();
+ 
+        // Calculate destination relative to camera.
+        var desiredMoveDirection = forward * moveVerticle + right * moveHorizontal;
+
+        Vector3 movement = new Vector3(desiredMoveDirection.x, 0f, desiredMoveDirection.z);
         Vector3 moveDestination = transform.position + movement;
         agent.speed = this.Speed;
         agent.destination = moveDestination;
