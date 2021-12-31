@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        Debug.Log(agent.remainingDistance);
         if(!firstPerson)
         {
             MoveThirdPerson();
