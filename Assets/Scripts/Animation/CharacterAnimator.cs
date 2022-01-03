@@ -16,7 +16,7 @@ public class CharacterAnimator : MonoBehaviour
     protected virtual void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        if(agent == null) { Debug.Log("Agent is missing."); }
+        if(agent == null) { Debug.Log("Agent is missing from character animator component."); }
     }
 
     void Update()
