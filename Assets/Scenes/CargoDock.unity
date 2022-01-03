@@ -5358,7 +5358,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.219925, y: 1}
+    m_SensorSize: {x: 1.9716194, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -6716,6 +6716,37 @@ Transform:
   m_Father: {fileID: 796693066}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1410553379 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 829005852619297969, guid: 7653164ae44af4cf4a269fd4b103d110,
+    type: 3}
+  m_PrefabInstance: {fileID: 829005851879834258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1410553380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410553379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30bb409a892c845dd9867c733e384009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  awareDistance: 10
+--- !u!114 &1410553381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410553379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb2ec8acf71c4a80a600df8be10a89c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1451032419 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5720178705358986827, guid: 7687ec956ac294478aff093335aaf3d5,
@@ -8918,7 +8949,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.219925, y: 1}
+    m_SensorSize: {x: 1.9716194, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -10222,11 +10253,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 829005852619297972, guid: 7653164ae44af4cf4a269fd4b103d110,
         type: 3}
-      propertyPath: navPoints.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 829005852619297972, guid: 7653164ae44af4cf4a269fd4b103d110,
-        type: 3}
       propertyPath: navPoints.Array.data[0]
       value: 
       objectReference: {fileID: 1638822676}
@@ -10252,13 +10278,8 @@ PrefabInstance:
       objectReference: {fileID: 1213687965}
     - target: {fileID: 829005852619297972, guid: 7653164ae44af4cf4a269fd4b103d110,
         type: 3}
-      propertyPath: navPoints.Array.data[5]
-      value: 
-      objectReference: {fileID: 1213687965}
-    - target: {fileID: 829005852619297972, guid: 7653164ae44af4cf4a269fd4b103d110,
-        type: 3}
-      propertyPath: moveSpeed
-      value: 5
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 829005852619297974, guid: 7653164ae44af4cf4a269fd4b103d110,
         type: 3}
@@ -10933,20 +10954,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2624976518864608845, guid: a589ceeb4009943bda180adefcd42630,
-        type: 3}
-      propertyPath: m_AutoBraking
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2624976518864608847, guid: a589ceeb4009943bda180adefcd42630,
         type: 3}
       propertyPath: m_Name
       value: AgentBox
-      objectReference: {fileID: 0}
-    - target: {fileID: 2624976518864608847, guid: a589ceeb4009943bda180adefcd42630,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a589ceeb4009943bda180adefcd42630, type: 3}

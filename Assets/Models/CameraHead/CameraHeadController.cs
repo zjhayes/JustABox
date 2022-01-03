@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class CameraHeadController : MonoBehaviour
+public class CameraHeadController : MonoBehaviour, IController
 {
     [SerializeField]
     private float awareDistance = 10.0f;
@@ -19,7 +19,6 @@ public class CameraHeadController : MonoBehaviour
     [SerializeField]
     private float attackRange = 5.0f;
 
-    State currentState = State.PATROLLING;
     private NavMeshAgent agent;
     private Transform goal;
     private Transform player;
@@ -45,48 +44,24 @@ public class CameraHeadController : MonoBehaviour
 
         if(isPassive)
         {
-            currentState = State.PASSIVE;
+            //currentState = State.PASSIVE;
         }
+
     }
+
+    public void Test(){}
 
     void Update()
     {
         Scan();
-
-        switch(currentState)
-        {
-            case(State.PASSIVE):
-                return;
-            case(State.PATROLLING):
-                Patrol();
-                return;
-            case(State.ALERT):
-                Pursue();
-                return;
-            case(State.SEARCHING):
-                Search();
-                return;
-        }
     }
 
-    void Scan()
+    public bool Scan()
     {
-        // Check top and bottom sight lines for player.
-        bool canSeeBottom = CanSeePlayer(SIGHT_OFFSET_BOTTOM, -60, 5);
-        bool canSeeTop = CanSeePlayer(SIGHT_OFFSET_TOP, -40, 3.5f);
-        bool playerInView = canSeeBottom || canSeeTop;
-
-        if(playerInView)
-        {
-            currentState = State.ALERT;
-        }
-        else if(currentState == State.ALERT)
-        {
-            currentState = State.SEARCHING;
-        }
+        // Check if player is in view.
+        return CanSeePlayer(SIGHT_OFFSET_BOTTOM, -60, 5);
     }
 
-    // TODO: Remove DebugRays to make more efficient, update OR condition in Scan method.
     bool CanSeePlayer(float sightOffset, float startAngleOffset, float stepAngleOffset)
     {
         Quaternion startingAngle = Quaternion.AngleAxis(startAngleOffset, Vector3.up);
@@ -156,7 +131,6 @@ public class CameraHeadController : MonoBehaviour
         {
             // Patrol and reset clock.
             currentSearchTime = searchTime;
-            currentState = State.PATROLLING;
         }
     }
 
@@ -181,6 +155,7 @@ public class CameraHeadController : MonoBehaviour
         // Set destination to next patrol route point.
         agent.destination = navPoints[destinationPoint].position;
         destinationPoint = (destinationPoint + 1) % navPoints.Length;
+        Debug.Log("Changed Point " + destinationPoint + " - " + Time.deltaTime);
     }
     void TargetPlayer()
     {
@@ -196,13 +171,4 @@ public class CameraHeadController : MonoBehaviour
     {
         agent.isStopped = true;
     }
-}
-
-public enum State
-{
-    PASSIVE,
-    PATROLLING,
-    ALERT,
-    SEARCHING,
-    DEAD
 }

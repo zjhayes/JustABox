@@ -376,7 +376,7 @@ GameObject:
   - component: {fileID: 2624976518864608846}
   m_Layer: 0
   m_Name: AgentBox
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -413,7 +413,7 @@ NavMeshAgent:
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
@@ -433,6 +433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkingSpeed: 2.5
   runningSpeed: 10
+  cameraBrain: {fileID: 0}
 --- !u!114 &2624976518864608846
 MonoBehaviour:
   m_ObjectHideFlags: 0
