@@ -19,15 +19,14 @@ public class StateContext<T> where T : IController
         CurrentState.Handle(controller);
     }
 
-    public void Transition<State>() where State : IState
+    public void Transition<U>() where U : Component, IState<T>
     {
         if(CurrentState != null)
         {
             CurrentState.Destroy();
         }
-        //var comp = typeof(IState<T>);
-        CurrentState = controller.gameObject.AddComponent<State>();
-        //CurrentState = state;
+        
+        CurrentState = controller.gameObject.AddComponent<U>();
         CurrentState.Handle(controller);
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAwareness : MonoBehaviour
+public class Awareness : MonoBehaviour
 {
     [SerializeField]
     private float awareDistance = 10.0f;
@@ -32,12 +32,17 @@ public class EnemyAwareness : MonoBehaviour
         {
             if(Physics.Raycast(position, forward, out hit, awareDistance))
             {
-                if(hit.collider.tag == PLAYER_TAG) // TODO: Why does it check player tag if script knows player?
+                if(hit.collider.tag == PLAYER_TAG)
                 {
                     Debug.DrawRay(position, forward * hit.distance, Color.red);
                     playerLastPosition = player.transform.position;
+                    Debug.Log("Player spotted.");
                     return true;
                 }
+            }
+            else
+            {
+                Debug.DrawRay(position, forward * awareDistance, Color.white);
             }
             forward = stepAngle * forward;
         }

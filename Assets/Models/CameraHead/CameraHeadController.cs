@@ -99,7 +99,7 @@ public class CameraHeadController : MonoBehaviour, IController
     {
         Stop();
         yield return new WaitForSeconds(5f);
-        GotoNextPoint();
+        //GotoNextPoint();
         Move();
     }
 
@@ -144,19 +144,6 @@ public class CameraHeadController : MonoBehaviour, IController
         transform.LookAt(playerLastPosition);
     }
 
-    void GotoNextPoint()
-    {
-        if(navPoints.Length == 0)
-        {
-            Debug.Log("No patrol route set. " + gameObject.name);
-            return;
-        }
-        
-        // Set destination to next patrol route point.
-        agent.destination = navPoints[destinationPoint].position;
-        destinationPoint = (destinationPoint + 1) % navPoints.Length;
-        Debug.Log("Changed Point " + destinationPoint + " - " + Time.deltaTime);
-    }
     void TargetPlayer()
     {
         agent.destination = playerLastPosition;

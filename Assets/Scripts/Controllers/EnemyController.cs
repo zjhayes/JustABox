@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyAwareness))]
+[RequireComponent(typeof(Awareness))]
 public class EnemyController : MonoBehaviour, IController
 {
-    private EnemyAwareness awareness;
-    private System.Type /*IState<EnemyController>*/ PATROL, ALERT, SEARCH;
+    [SerializeField]
+    private PatrolPath patrolPath;
+    private Awareness awareness;
     private StateContext<EnemyController> stateContext;
 
     void Start()
     {
-        awareness = GetComponent<EnemyAwareness>();
+        awareness = GetComponent<Awareness>();
 
         stateContext = new StateContext<EnemyController>(this);
-        PATROL = typeof(PatrolState);//gameObject.AddComponent<PatrolState>();
-        //ALERT = gameObject.AddComponent<AlertState>();
-        //SEARCH = gameObject.AddComponent<SearchState>();
 
         Patrol();
     }
@@ -37,5 +35,6 @@ public class EnemyController : MonoBehaviour, IController
         stateContext.Transition<SearchState>();
     }
 
-    public EnemyAwareness Awareness { get; }
+    public Awareness Awareness { get; }
+    public PatrolPath PatrolPath { get; set; }
 }
