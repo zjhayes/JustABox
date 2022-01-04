@@ -7,6 +7,7 @@ public class AlertState : MonoBehaviour, IState<EnemyController>
     public void Handle(EnemyController _controller)
     {
         controller = _controller;
+        Debug.Log("Player spotted.");
     }
 
     public void Destroy()

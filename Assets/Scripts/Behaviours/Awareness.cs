@@ -18,8 +18,13 @@ public class Awareness : MonoBehaviour
     {
         player = GameManager.Instance.Player.transform;
     }
+
+    public bool CanSeePlayer()
+    {
+        return Scan(PLAYER_TAG, SIGHT_OFFSET_BOTTOM, -60, 5);
+    }
     
-    public bool CanSeePlayer(float sightOffset, float startAngleOffset, float stepAngleOffset)
+    private bool Scan(string tag, float sightOffset, float startAngleOffset, float stepAngleOffset)
     {
         Quaternion startingAngle = Quaternion.AngleAxis(startAngleOffset, Vector3.up);
         Quaternion stepAngle = Quaternion.AngleAxis(stepAngleOffset, Vector3.up);
@@ -32,11 +37,10 @@ public class Awareness : MonoBehaviour
         {
             if(Physics.Raycast(position, forward, out hit, awareDistance))
             {
-                if(hit.collider.tag == PLAYER_TAG)
+                if(hit.collider.tag == tag)
                 {
                     Debug.DrawRay(position, forward * hit.distance, Color.red);
                     playerLastPosition = player.transform.position;
-                    Debug.Log("Player spotted.");
                     return true;
                 }
             }

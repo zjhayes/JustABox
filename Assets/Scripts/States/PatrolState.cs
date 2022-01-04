@@ -24,9 +24,14 @@ public class PatrolState : MonoBehaviour, IState<EnemyController>
 
     void Update()
     {
-        if(agent.remainingDistance < PATROL_POINT_MIN_DISTANCE && !agent.isStopped)
+        // Check awareness.
+        if(controller.Awareness.CanSeePlayer())
         {
-            Debug.Log(agent.remainingDistance < PATROL_POINT_MIN_DISTANCE);
+            controller.Alert();
+
+        } // When near destination, wait and move to new destination.
+        else if(agent.remainingDistance < PATROL_POINT_MIN_DISTANCE && !agent.isStopped)
+        {
             StartCoroutine(WaitAndMoveToNextPoint());
         }
     }
