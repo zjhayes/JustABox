@@ -2,16 +2,23 @@
 
 public class PatrolPath : MonoBehaviour
 {
-    [SerializeField]
-    private Transform[] navPoints;
+    private NavigationPoint[] navigationPoints;
 
     void Start()
     {
-        if(navPoints.Length == 0)
+        navigationPoints = GetComponentsInChildren<NavigationPoint>();
+
+        if(navigationPoints.Length == 0)
         {
             Debug.Log("No patrol route set. " + gameObject.name);
         }
     }
 
-    public Transform[] NavigationPoints { get; set; }
+    public NavigationPoint[] NavigationPoints 
+    {
+        get
+        {
+            return navigationPoints;
+        }
+    }
 }

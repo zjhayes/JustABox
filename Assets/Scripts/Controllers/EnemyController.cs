@@ -14,7 +14,6 @@ public class EnemyController : MonoBehaviour, IController
     void Start()
     {
         awareness = GetComponent<Awareness>();
-
         stateContext = new StateContext<EnemyController>(this);
 
         Patrol();
@@ -36,5 +35,9 @@ public class EnemyController : MonoBehaviour, IController
     }
 
     public Awareness Awareness { get; }
-    public PatrolPath PatrolPath { get; set; }
+    public PatrolPath PatrolPath 
+    { 
+        get { return patrolPath; }
+        set { patrolPath = value; }
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,19 +13,20 @@ public class PatrolState : MonoBehaviour, IState<EnemyController>
 
     public void Handle(EnemyController _controller)
     {
-        Debug.Log("Patrolling");
         controller = _controller;
     }
 
     void Start()
     {
         agent = controller.GetComponent<NavMeshAgent>();
+        path = controller.PatrolPath;
     }
 
     void Update()
     {
-        if(agent.remainingDistance < PATROL_POINT_MIN_DISTANCE)
+        if(agent.remainingDistance < PATROL_POINT_MIN_DISTANCE && !agent.isStopped)
         {
+            Debug.Log(agent.remainingDistance < PATROL_POINT_MIN_DISTANCE);
             StartCoroutine(WaitAndMoveToNextPoint());
         }
     }
@@ -46,8 +48,8 @@ public class PatrolState : MonoBehaviour, IState<EnemyController>
     void GotoNextPoint()
     {
         // Set destination to next patrol route point.
-        agent.destination = path.NavigationPoints[destinationPoint].position;
-        destinationPoint = (destinationPoint + 1) % path.NavigationPoints.Length;
+        agent.destination = controller.PatrolPath.NavigationPoints[destinationPoint].transform.position;
+        destinationPoint = (destinationPoint + 1) % controller.PatrolPath.NavigationPoints.Length;
     }
 
     void Move()
