@@ -9,11 +9,13 @@ public class EnemyController : MonoBehaviour, IController
     [SerializeField]
     private PatrolPath patrolPath;
     private Awareness awareness;
+    private NavMeshAgent agent;
     private StateContext<EnemyController> stateContext;
 
     void Start()
     {
         awareness = GetComponent<Awareness>();
+        agent = GetComponent<NavMeshAgent>();
         stateContext = new StateContext<EnemyController>(this);
 
         Patrol();
@@ -34,10 +36,29 @@ public class EnemyController : MonoBehaviour, IController
         stateContext.Transition<SearchState>();
     }
 
-    public Awareness Awareness { get; }
-    public PatrolPath PatrolPath 
-    { 
-        get { return patrolPath; }
-        set { patrolPath = value; }
+    public void LookAtPlayer()
+    {
+        Debug.Log("Position: " + awareness.PlayerLastPosition);
+        transform.LookAt(awareness.PlayerLastPosition);
     }
+
+    public void TargetPlayer()
+    {
+        Debug.Log("Position: " + awareness.PlayerLastPosition);
+        agent.destination = awareness.PlayerLastPosition.position;
+    }
+
+    public void Move()
+    {
+        agent.isStopped = false;
+    }
+
+    public void Stop()
+    {
+        agent.isStopped = true;
+    }
+
+    public NavMeshAgent Agent { get { return agent; } }
+    public Awareness Awareness { get { return awareness; } }
+    public PatrolPath PatrolPath { get { return patrolPath; } }
 }

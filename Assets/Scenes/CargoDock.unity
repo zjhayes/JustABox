@@ -630,7 +630,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 132553302}
-  - component: {fileID: 132553303}
   - component: {fileID: 132553304}
   m_Layer: 0
   m_Name: PatrolPath_Dock1
@@ -658,18 +657,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &132553303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 132553301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f22509867ffb4bd2942ffc2d9ce9c67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &132553304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5438,7 +5425,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.9716194, y: 1}
+    m_SensorSize: {x: 2.3111546, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -6116,6 +6103,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b68439b74354a9b90f98d5ab7533cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &1276715857
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276715851}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 3, z: 3}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1001 &1286070441
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6845,6 +6845,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   awareDistance: 10
+  sightOffset: 1
+  numberOfSightRays: 24
+  sightStartAngle: -60
+  sightStepAngle: 5
 --- !u!114 &1410553381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9060,7 +9064,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.9716194, y: 1}
+    m_SensorSize: {x: 2.3111546, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -10470,7 +10474,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 829005852619297972, guid: 7653164ae44af4cf4a269fd4b103d110, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7653164ae44af4cf4a269fd4b103d110, type: 3}
 --- !u!1001 &1243651853744159540
 PrefabInstance:

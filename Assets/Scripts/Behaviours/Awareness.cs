@@ -6,13 +6,19 @@ public class Awareness : MonoBehaviour
 {
     [SerializeField]
     private float awareDistance = 10.0f;
+    [SerializeField]
+    private float sightOffset = 0;
+    [SerializeField]
+    private int numberOfSightRays = 24;
+    [SerializeField]
+    private int sightStartAngle = -60;
+    [SerializeField]
+    private int sightStepAngle = 5;
+
+    readonly string PLAYER_TAG = "Player";
 
     private Transform player;
-    private Vector3 playerLastPosition;
-
-    readonly float SIGHT_OFFSET = -0.5f;
-    readonly string PLAYER_TAG = "Player";
-    readonly float NUMBER_OF_RAYS = 24.0f;
+    private Transform playerLastPosition;
 
     void Start()
     {
@@ -21,27 +27,33 @@ public class Awareness : MonoBehaviour
 
     public bool CanSeePlayer()
     {
-        return Scan(PLAYER_TAG, SIGHT_OFFSET_BOTTOM, -60, 5);
+        List<Transform> playerInView = Scan(PLAYER_TAG, sightOffset, sightStartAngle, sightStepAngle);
+        if(playerInView.Count > 0)
+        {
+            playerLastPosition = playerInView[0];
+            return true;
+        }
+        return false;
     }
     
-    private bool Scan(string tag, float sightOffset, float startAngleOffset, float stepAngleOffset)
+    private List<Transform> Scan(string tag, float scanOffset, float startAngleOffset, float stepAngleOffset)
     {
         Quaternion startingAngle = Quaternion.AngleAxis(startAngleOffset, Vector3.up);
         Quaternion stepAngle = Quaternion.AngleAxis(stepAngleOffset, Vector3.up);
         Quaternion angle = transform.rotation * startingAngle;
         RaycastHit hit;
         Vector3 position = transform.position;
-        position.y += sightOffset;
+        position.y += scanOffset;
         Vector3 forward = angle * Vector3.forward;
-        for(int i = 0; i < NUMBER_OF_RAYS; i++)
+        List<Transform> hits = new List<Transform>();
+        for(int i = 0; i < numberOfSightRays; i++)
         {
             if(Physics.Raycast(position, forward, out hit, awareDistance))
             {
                 if(hit.collider.tag == tag)
                 {
                     Debug.DrawRay(position, forward * hit.distance, Color.red);
-                    playerLastPosition = player.transform.position;
-                    return true;
+                    hits.Add(hit.collider.transform);
                 }
             }
             else
@@ -50,8 +62,8 @@ public class Awareness : MonoBehaviour
             }
             forward = stepAngle * forward;
         }
-        return false;
+        return hits;
     }
 
-    
+    public Transform PlayerLastPosition { get { return playerLastPosition; } }
 }

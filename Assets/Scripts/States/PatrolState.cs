@@ -7,8 +7,6 @@ public class PatrolState : MonoBehaviour, IState<EnemyController>
 {
     private EnemyController controller;
     private int destinationPoint = 0;
-    private NavMeshAgent agent;
-    private PatrolPath path;
     readonly float PATROL_POINT_MIN_DISTANCE = 0.5f;
 
     public void Handle(EnemyController _controller)
@@ -18,8 +16,7 @@ public class PatrolState : MonoBehaviour, IState<EnemyController>
 
     void Start()
     {
-        agent = controller.GetComponent<NavMeshAgent>();
-        path = controller.PatrolPath;
+        if(!controller) { Debug.Log("No controller set on state."); }
     }
 
     void Update()
@@ -30,7 +27,7 @@ public class PatrolState : MonoBehaviour, IState<EnemyController>
             controller.Alert();
 
         } // When near destination, wait and move to new destination.
-        else if(agent.remainingDistance < PATROL_POINT_MIN_DISTANCE && !agent.isStopped)
+        else if(controller.Agent.remainingDistance < PATROL_POINT_MIN_DISTANCE && !controller.Agent.isStopped)
         {
             StartCoroutine(WaitAndMoveToNextPoint());
         }
@@ -44,26 +41,16 @@ public class PatrolState : MonoBehaviour, IState<EnemyController>
 
     IEnumerator WaitAndMoveToNextPoint()
     {
-        Stop();
+        controller.Stop();
         yield return new WaitForSeconds(5f);
         GotoNextPoint();
-        Move();
+        controller.Move();
     }
 
     void GotoNextPoint()
     {
         // Set destination to next patrol route point.
-        agent.destination = controller.PatrolPath.NavigationPoints[destinationPoint].transform.position;
+        controller.Agent.destination = controller.PatrolPath.NavigationPoints[destinationPoint].transform.position;
         destinationPoint = (destinationPoint + 1) % controller.PatrolPath.NavigationPoints.Length;
-    }
-
-    void Move()
-    {
-        agent.isStopped = false;
-    }
-
-    void Stop()
-    {
-        agent.isStopped = true;
     }
 }
