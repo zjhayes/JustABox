@@ -28,7 +28,7 @@ public class EnemyController : MonoBehaviour, IController
 
     public void Alert()
     {
-        stateContext.Transition<AlertState>();
+        stateContext.Transition<PursueState>();
     }
 
     public void Search()

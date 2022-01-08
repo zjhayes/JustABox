@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class AlertState : MonoBehaviour, IState<EnemyController>
+public class PursueState : MonoBehaviour, IState<EnemyController>
 {
     private EnemyController controller;
     
@@ -17,16 +17,12 @@ public class AlertState : MonoBehaviour, IState<EnemyController>
 
     void Update()
     {
-        if(controller.Awareness.CanSeePlayer())
-        {
-            controller.TargetPlayer();
-            controller.LookAtPlayer();
-        }
+        
     }
 
     public void Destroy()
     {
-        var comp = GetComponent<AlertState>();
+        var comp = GetComponent<PursueState>();
         Destroy(comp);
     }
 }
