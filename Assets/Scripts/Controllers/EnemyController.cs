@@ -38,13 +38,11 @@ public class EnemyController : MonoBehaviour, IController
 
     public void LookAtPlayer()
     {
-        Debug.Log("Position: " + awareness.PlayerLastPosition);
         transform.LookAt(awareness.PlayerLastPosition);
     }
 
     public void TargetPlayer()
     {
-        Debug.Log("Position: " + awareness.PlayerLastPosition);
         agent.destination = awareness.PlayerLastPosition.position;
     }
 

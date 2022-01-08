@@ -12,11 +12,16 @@ public class AlertState : MonoBehaviour, IState<EnemyController>
     void Start()
     {
         controller.TargetPlayer();
+        controller.Move();
     }
 
     void Update()
     {
-        controller.LookAtPlayer();
+        if(controller.Awareness.CanSeePlayer())
+        {
+            controller.TargetPlayer();
+            controller.LookAtPlayer();
+        }
     }
 
     public void Destroy()
