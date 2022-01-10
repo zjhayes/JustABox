@@ -22,6 +22,7 @@ public class AlertState : MonoBehaviour, IState<EnemyAlertController>
         // Iterate alert timer.
         if(currentTime > 0)
         {
+            Debug.Log("Alert Time: " + currentTime);
             currentTime -= Time.deltaTime;
         }
         else

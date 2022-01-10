@@ -17,13 +17,7 @@ public class Awareness : MonoBehaviour
 
     readonly string PLAYER_TAG = "Player";
 
-    private Transform player;
     private Transform playerLastPosition;
-
-    void Start()
-    {
-        player = GameManager.Instance.Player.transform;
-    }
 
     public bool CanSeePlayer()
     {
