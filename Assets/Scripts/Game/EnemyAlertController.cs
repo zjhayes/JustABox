@@ -23,4 +23,10 @@ public class EnemyAlertController : MonoBehaviour, IController
         stateContext.Transition<AlertState>();
         GameManager.Instance.Events.Alert();
     }
+
+    public void Evasion()
+    {
+        //stateContext.Transition<EvasionState>();
+        
+    }
 }

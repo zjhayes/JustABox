@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // TO DO: Replace with listener
+    // TO DO: Replace with listener. Create separate object for Player View.
     void SwitchView()
     {
         firstPerson = !firstPerson;

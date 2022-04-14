@@ -20,7 +20,7 @@ public class PursueState : MonoBehaviour, IState<EnemyController>
         // Check awareness.
         if(controller.Awareness.CanSeePlayer())
         {
-            controller.Alert();
+            // Update Alert
         }
     }
 

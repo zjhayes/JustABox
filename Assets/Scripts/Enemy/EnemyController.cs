@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour, IController
         stateContext.Transition<PatrolState>();
     }
 
-    public void Alert()
+    public void Pursue()
     {
         stateContext.Transition<PursueState>();
     }

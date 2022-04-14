@@ -9,6 +9,10 @@ public class EventManager : EventBus
         Publish(EventType.OnAlert);
     }
 
+    public void Evasion()
+    {
+        Publish(EventType.OnEvasion);
+    }
     public void AllClear()
     {
         Publish(EventType.OnAllClear);
