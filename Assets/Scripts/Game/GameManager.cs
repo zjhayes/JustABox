@@ -25,4 +25,9 @@ public class GameManager : Singleton<GameManager>
     {
         get { return events; }
     }
+
+    public EnemyAlertController EnemyAlertController
+    {
+        get { return alertController; }
+    }
 }

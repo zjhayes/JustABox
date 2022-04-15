@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class ReportState : MonoBehaviour, IState<EnemyController>
 {
     private EnemyController controller;
-    readonly float PATROL_POINT_MIN_DISTANCE = 0.5f;
 
     public void Handle(EnemyController _controller)
     {
@@ -20,14 +19,16 @@ public class ReportState : MonoBehaviour, IState<EnemyController>
 
     void Update()
     {
-        // Report to alert controller.
-        WaitAndUpdateGlobalAlert();
+        // Report to alert controller. TODO: Replace with report animation.
+        StartCoroutine(WaitAndUpdateGlobalAlert());
     }
 
-    IEnumerator WaitAndUpdateGlobalAlert()
+    private IEnumerator WaitAndUpdateGlobalAlert()
     {
         controller.Stop();
+        Debug.Log("Reporting...");
         yield return new WaitForSeconds(5f);
+        Debug.Log("Reported.");
         // Set global alert.
         GameManager.Instance.EnemyAlertController.Alert();
         // Resume pursuit.

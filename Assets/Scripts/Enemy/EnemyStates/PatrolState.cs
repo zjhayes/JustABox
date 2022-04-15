@@ -27,7 +27,7 @@ public class PatrolState : MonoBehaviour, IState<EnemyController>
             controller.Pursue();
 
         } // When near destination, wait and move to new destination.
-        else if(controller.Agent.remainingDistance < PATROL_POINT_MIN_DISTANCE && !controller.Agent.isStopped)
+        else if(NearDestination() && !controller.Agent.isStopped)
         {
             StartCoroutine(WaitAndMoveToNextPoint());
         }
@@ -39,7 +39,7 @@ public class PatrolState : MonoBehaviour, IState<EnemyController>
         Destroy(comp);
     }
 
-    IEnumerator WaitAndMoveToNextPoint()
+    private IEnumerator WaitAndMoveToNextPoint()
     {
         controller.Stop();
         yield return new WaitForSeconds(5f);
@@ -47,10 +47,15 @@ public class PatrolState : MonoBehaviour, IState<EnemyController>
         controller.Move();
     }
 
-    void GotoNextPoint()
+    private void GotoNextPoint()
     {
         // Set destination to next patrol route point.
         controller.Agent.destination = controller.PatrolPath.NavigationPoints[destinationPoint].transform.position;
         destinationPoint = (destinationPoint + 1) % controller.PatrolPath.NavigationPoints.Length;
+    }
+
+    private bool NearDestination()
+    {
+        return controller.Agent.remainingDistance < PATROL_POINT_MIN_DISTANCE;
     }
 }

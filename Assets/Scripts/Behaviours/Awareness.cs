@@ -24,6 +24,7 @@ public class Awareness : MonoBehaviour
         List<Transform> playerInView = Scan(PLAYER_TAG, sightOffset, sightStartAngle, sightStepAngle);
         if(playerInView.Count > 0)
         {
+            Debug.Log("Found");
             playerLastPosition = playerInView[0];
             return true;
         }
@@ -44,6 +45,8 @@ public class Awareness : MonoBehaviour
         {
             if(Physics.Raycast(position, forward, out hit, awareDistance))
             {
+                Debug.Log("TAG " + hit.collider.tag);
+                Debug.Log(hit.collider.name);
                 if(hit.collider.tag == tag)
                 {
                     Debug.DrawRay(position, forward * hit.distance, Color.red);

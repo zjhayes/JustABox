@@ -2,9 +2,6 @@
 
 public class AlertState : MonoBehaviour, IState<EnemyAlertController>
 {
-    [SerializeField]
-    private float alertTime = 99.0f;
-    private float currentTime;
     private EnemyAlertController controller;
     
     public void Handle(EnemyAlertController _controller)
@@ -12,22 +9,16 @@ public class AlertState : MonoBehaviour, IState<EnemyAlertController>
         controller = _controller;
     }
 
-    void Start()
-    {
-        currentTime = alertTime;
-    }
-
     void Update()
     {
         // Iterate alert timer.
-        if(currentTime > 0)
+        if(controller.CurrentTime > 0.0f)
         {
-            Debug.Log("Alert Time: " + currentTime);
-            currentTime -= Time.deltaTime;
+            Debug.Log("Alert Time: " + controller.CurrentTime);
+            controller.CurrentTime -= Time.deltaTime;
         }
         else
         {
-            currentTime = alertTime;
             controller.AllClear();
         }
     }

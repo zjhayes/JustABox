@@ -1,4 +1,4 @@
 ﻿public enum EventType
 {
-    OnAlert, OnAllClear
+    OnAlert, OnAllClear, OnResetAlert
 }
