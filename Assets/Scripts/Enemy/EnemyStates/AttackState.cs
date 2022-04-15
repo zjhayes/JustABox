@@ -23,7 +23,7 @@ public class AttackState : MonoBehaviour, IState<EnemyController>
     void Update()
     {
         // Check awareness.
-        if(controller.Awareness.CanSeePlayer())
+        if(controller.Awareness.CanSeePlayer)
         {
             controller.LookAtPlayer();
 
@@ -46,7 +46,7 @@ public class AttackState : MonoBehaviour, IState<EnemyController>
 
         yield return new WaitForSeconds(5f);
 
-        if(controller.Awareness.CanSeePlayer() && ++numberOfAttacks > MAX_ATTACKS) 
+        if(controller.Awareness.CanSeePlayer && ++numberOfAttacks > MAX_ATTACKS) 
         {
             Attack();
         }

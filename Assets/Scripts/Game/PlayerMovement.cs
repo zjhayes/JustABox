@@ -26,10 +26,10 @@ public class PlayerMovement : MonoBehaviour
 
         // Assign input controls to player movement.
         InputManager.Instance.Controls.Player.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
-        InputManager.Instance.Controls.Player.Move.canceled += ctx => Stop();
-        InputManager.Instance.Controls.Player.Run.performed += ctx => Run();
-        InputManager.Instance.Controls.Player.Run.canceled += ctx => Walk();
-
+        InputManager.Instance.Controls.Player.Move.canceled += _ => Stop();
+        InputManager.Instance.Controls.Player.Run.performed += _ => Run();
+        InputManager.Instance.Controls.Player.Run.canceled += _ => Walk();
+        // TODO: Move view controls to own object.
         InputManager.Instance.Controls.Player.Camera.performed += _ => SwitchView();
     }
 
@@ -45,7 +45,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // TO DO: Replace with listener. Create separate object for Player View.
     void SwitchView()
     {
         firstPerson = !firstPerson;

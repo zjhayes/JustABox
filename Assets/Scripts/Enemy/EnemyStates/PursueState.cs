@@ -25,7 +25,7 @@ public class PursueState : MonoBehaviour, IState<EnemyController>
             controller.ReportAlert();
         }
 
-        if(controller.Awareness.CanSeePlayer())
+        if(controller.Awareness.CanSeePlayer)
         {
             if(controller.Reported) // there's an active alert...
             {
@@ -40,7 +40,10 @@ public class PursueState : MonoBehaviour, IState<EnemyController>
             else
             {
                 // Follow player.
-                GoToPlayerLastKnownPosition();
+                if(controller.Agent.isStopped)
+                {
+                    GoToPlayerLastKnownPosition();
+                }
             }
         }
         else // can't see player...

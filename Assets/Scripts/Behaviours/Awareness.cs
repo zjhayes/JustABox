@@ -14,18 +14,29 @@ public class Awareness : MonoBehaviour
     private int sightStartAngle = -60;
     [SerializeField]
     private int sightStepAngle = 5;
+    [SerializeField]
+    private int scanInterval = 10;
 
     readonly string PLAYER_TAG = "Player";
 
-    private Transform playerLastPosition;
+    private Vector3 playerLastPosition;
+    private bool canSeePlayer = false;
 
-    public bool CanSeePlayer()
+    void Update()
+    {
+        if(Time.frameCount % scanInterval == 0)
+        {
+            canSeePlayer = ScanForPlayer();
+        }
+    }
+
+    private bool ScanForPlayer()
     {
         List<Transform> playerInView = Scan(PLAYER_TAG, sightOffset, sightStartAngle, sightStepAngle);
         if(playerInView.Count > 0)
         {
-            Debug.Log("Found");
-            playerLastPosition = playerInView[0];
+            Vector3 playerPosition = playerInView[0].position;
+            playerLastPosition = new Vector3(playerPosition.x,playerPosition.y,playerPosition.z);
             return true;
         }
         return false;
@@ -45,8 +56,6 @@ public class Awareness : MonoBehaviour
         {
             if(Physics.Raycast(position, forward, out hit, awareDistance))
             {
-                Debug.Log("TAG " + hit.collider.tag);
-                Debug.Log(hit.collider.name);
                 if(hit.collider.tag == tag)
                 {
                     Debug.DrawRay(position, forward * hit.distance, Color.red);
@@ -62,5 +71,6 @@ public class Awareness : MonoBehaviour
         return hits;
     }
 
-    public Transform PlayerLastPosition { get { return playerLastPosition; } }
+    public Vector3 PlayerLastPosition { get { return playerLastPosition; } }
+    public bool CanSeePlayer { get { return canSeePlayer; }}
 }

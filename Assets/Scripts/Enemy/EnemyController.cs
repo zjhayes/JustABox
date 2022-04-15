@@ -61,7 +61,7 @@ public class EnemyController : MonoBehaviour, IController
 
     public void TargetPlayer()
     {
-        agent.destination = awareness.PlayerLastPosition.position;
+        agent.destination = awareness.PlayerLastPosition;
     }
 
     public void Move()

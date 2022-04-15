@@ -22,7 +22,7 @@ public class PatrolState : MonoBehaviour, IState<EnemyController>
     void Update()
     {
         // Check awareness.
-        if(controller.Awareness.CanSeePlayer())
+        if(controller.Awareness.CanSeePlayer)
         {
             controller.Pursue();
 
