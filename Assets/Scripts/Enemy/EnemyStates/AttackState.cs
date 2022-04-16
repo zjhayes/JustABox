@@ -18,6 +18,7 @@ public class AttackState : MonoBehaviour, IState<EnemyController>
     void Start()
     {
         if(!controller) { Debug.Log("No controller set on state."); }
+        Debug.Log("Enemy attacks!");
     }
 
     void Update()
@@ -27,10 +28,10 @@ public class AttackState : MonoBehaviour, IState<EnemyController>
         {
             controller.LookAtPlayer();
 
-            if(controller.Reported)
+            if(controller.AlertReported)
             {
                 // Reset alert.
-                GameManager.Instance.EnemyAlertController.Reset();
+                GameManager.Instance.EnemyAlertController.Reset(controller.Awareness.PlayerLastPosition);
             }
         }
         
@@ -42,8 +43,6 @@ public class AttackState : MonoBehaviour, IState<EnemyController>
         controller.Stop();
 
         // TODO: add attack system.
-        Debug.Log("Enemy attacks!");
-
         yield return new WaitForSeconds(5f);
 
         if(controller.Awareness.CanSeePlayer && ++numberOfAttacks > MAX_ATTACKS) 

@@ -13,7 +13,7 @@ public class SearchState : MonoBehaviour, IState<EnemyController>
     {
         // Set search area.
         Debug.Log("Searching");
-        controller.Patrol(); // TODO: Add search system.
+        // TODO: Add search system.
     }
 
     public void Destroy()

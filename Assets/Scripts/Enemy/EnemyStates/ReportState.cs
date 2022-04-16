@@ -15,6 +15,7 @@ public class ReportState : MonoBehaviour, IState<EnemyController>
     void Start()
     {
         if(!controller) { Debug.Log("No controller set on state."); }
+        Debug.Log("Reporting...");
     }
 
     void Update()
@@ -26,11 +27,10 @@ public class ReportState : MonoBehaviour, IState<EnemyController>
     private IEnumerator WaitAndUpdateGlobalAlert()
     {
         controller.Stop();
-        Debug.Log("Reporting...");
         yield return new WaitForSeconds(5f);
         Debug.Log("Reported.");
         // Set global alert.
-        GameManager.Instance.EnemyAlertController.Alert();
+        GameManager.Instance.EnemyAlertController.Alert(controller.Awareness.PlayerLastPosition);
         // Resume pursuit.
         controller.Move();
         controller.Pursue();

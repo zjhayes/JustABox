@@ -7,6 +7,7 @@ public class EnemyAlertController : MonoBehaviour, IController
     [SerializeField]
     private float alertTime = 9.9f;
     private float currentTime;
+    private Vector3 searchArea;
 
     private StateContext<EnemyAlertController> stateContext;
 
@@ -19,19 +20,23 @@ public class EnemyAlertController : MonoBehaviour, IController
 
     public void AllClear()
     {
-        Reset();
+        currentTime = alertTime;
         stateContext.Transition<NormalState>();
         GameManager.Instance.Events.AllClear();
+        Debug.Log("All Clear");
     }
 
-    public void Alert()
+    public void Alert(Vector3 playerLastPosition)
     {
+        searchArea = playerLastPosition;
         stateContext.Transition<AlertState>();
         GameManager.Instance.Events.Alert();
+        Debug.Log("Alert Reported");
     }
 
-    public void Reset()
+    public void Reset(Vector3 playerLastPosition)
     {
+        searchArea = playerLastPosition;
         currentTime = alertTime;
         GameManager.Instance.Events.ResetAlert();
     }
@@ -46,9 +51,10 @@ public class EnemyAlertController : MonoBehaviour, IController
         get { return currentTime; }
         set { currentTime = value; }
     }
-    public void Evasion()
+
+    public Vector3 SearchArea
     {
-        //stateContext.Transition<EvasionState>();
-        
+        get { return searchArea; }
+        set { searchArea = value; }
     }
 }

@@ -13,23 +13,46 @@ public class EnemyController : MonoBehaviour, IController
     private Awareness awareness;
     private NavMeshAgent agent;
     private StateContext<EnemyController> stateContext;
-    private bool reported;
+    private bool alertReported = false;
 
     void Start()
     {
         awareness = GetComponent<Awareness>();
         agent = GetComponent<NavMeshAgent>();
         stateContext = new StateContext<EnemyController>(this);
-        reported = false;
+        
+        agent.autoBraking = false;
+        alertReported = false;
 
-         agent.autoBraking = false;
+        Patrol();
+    }
 
+    void OnEnable()
+    {
+        EventBus.Subscribe(EventType.OnAlert, OnAlert);
+        EventBus.Subscribe(EventType.OnAllClear, OnAllClear);
+    }
+
+    void OnDisable()
+    {
+        EventBus.Unsubscribe(EventType.OnAlert, OnAlert);
+        EventBus.Unsubscribe(EventType.OnAllClear, OnAllClear);
+    }
+
+    private void OnAlert()
+    {
+        alertReported = true;
+        Pursue();
+    }
+
+    private void OnAllClear()
+    {
         Patrol();
     }
 
     public void Patrol()
     {
-        reported = false;
+        alertReported = false;
         stateContext.Transition<PatrolState>();
     }
 
@@ -46,7 +69,7 @@ public class EnemyController : MonoBehaviour, IController
     public void ReportAlert()
     {
         stateContext.Transition<ReportState>();
-        reported = true;
+        alertReported = true;
     }
 
     public void Attack()
@@ -59,9 +82,9 @@ public class EnemyController : MonoBehaviour, IController
         transform.LookAt(awareness.PlayerLastPosition);
     }
 
-    public void TargetPlayer()
+    public void SetDestination(Vector3 destination)
     {
-        agent.destination = awareness.PlayerLastPosition;
+        agent.destination = destination;
     }
 
     public void Move()
@@ -77,5 +100,21 @@ public class EnemyController : MonoBehaviour, IController
     public NavMeshAgent Agent { get { return agent; } }
     public Awareness Awareness { get { return awareness; } }
     public PatrolPath PatrolPath { get { return patrolPath; } }
-    public bool Reported { get { return reported; }}
+    public bool AlertReported { get { return alertReported; }}
+
+    public Vector3 PlayerLastKnownPosition
+    {
+        get
+        {
+            if(alertReported)
+            {
+                // Return search area during alert.
+                return GameManager.Instance.EnemyAlertController.SearchArea;
+            }
+            else
+            {
+                return awareness.PlayerLastPosition;
+            }
+        }
+    }
 }

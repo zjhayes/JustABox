@@ -24,6 +24,7 @@ public class Awareness : MonoBehaviour
 
     void Update()
     {
+        // Scan for player every x (scanInterval) frames.
         if(Time.frameCount % scanInterval == 0)
         {
             canSeePlayer = ScanForPlayer();

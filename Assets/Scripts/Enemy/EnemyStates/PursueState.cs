@@ -20,17 +20,17 @@ public class PursueState : MonoBehaviour, IState<EnemyController>
     void Update()
     {
         // Report alert, if none reported.
-        if(!controller.Reported && !PlayerWithinAttackRange())
+        if(!controller.AlertReported && !PlayerWithinAttackRange())
         {
             controller.ReportAlert();
         }
 
         if(controller.Awareness.CanSeePlayer)
         {
-            if(controller.Reported) // there's an active alert...
+            if(controller.AlertReported) // there's an active alert...
             {
                 // Reset active alerts.
-                GameManager.Instance.EnemyAlertController.Reset();
+                GameManager.Instance.EnemyAlertController.Reset(controller.Awareness.PlayerLastPosition);
             }
             
             if(PlayerWithinAttackRange())
@@ -60,7 +60,7 @@ public class PursueState : MonoBehaviour, IState<EnemyController>
     private void GoToPlayerLastKnownPosition()
     {
         controller.Move();
-        controller.TargetPlayer();
+        controller.SetDestination(controller.PlayerLastKnownPosition);
     }
 
     private bool ReachedLastKnownLocation()

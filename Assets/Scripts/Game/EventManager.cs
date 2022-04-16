@@ -14,10 +14,6 @@ public class EventManager : EventBus
         Publish(EventType.OnResetAlert);
     }
 
-    public void Evasion()
-    {
-        //Publish(EventType.OnEvasion);
-    }
     public void AllClear()
     {
         Publish(EventType.OnAllClear);

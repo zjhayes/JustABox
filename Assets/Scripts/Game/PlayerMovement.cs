@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     CinemachineBrain cameraBrain;
 
     NavMeshAgent agent;
-    bool canMove = true;
     bool isRunning = false;
     float moveVerticle = 0.0f;
     float moveHorizontal = 0.0f;
