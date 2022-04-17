@@ -30,7 +30,7 @@ public class PursueState : MonoBehaviour, IState<EnemyController>
             if(controller.AlertReported) // there's an active alert...
             {
                 // Reset active alerts.
-                GameManager.Instance.EnemyAlertController.Reset(controller.Awareness.PlayerLastPosition);
+                GameManager.Instance.AlertController.Reset(controller.Awareness.PlayerLastPosition);
             }
             
             if(PlayerWithinAttackRange())

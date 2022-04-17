@@ -375,9 +375,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2624976518864608844}
   - component: {fileID: 2624976518864608845}
+  - component: {fileID: 1276715857}
+  - component: {fileID: 469531165839786608}
   - component: {fileID: 2624976518864608843}
   - component: {fileID: 2624976518864608846}
-  - component: {fileID: 1276715857}
   - component: {fileID: 1276715856}
   m_Layer: 0
   m_Name: AgentBox
@@ -424,6 +425,31 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &1276715857
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2624976518864608847}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 3, z: 3}
+  m_Center: {x: 0, y: 2, z: 0}
+--- !u!114 &469531165839786608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2624976518864608847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc12b449399344ac1bdb81cf87dfe4d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2624976518864608843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,19 +479,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1125193140112979462}
   smoothTime: 0.1
---- !u!65 &1276715857
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2624976518864608847}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3, y: 3, z: 3}
-  m_Center: {x: 0, y: 2, z: 0}
 --- !u!114 &1276715856
 MonoBehaviour:
   m_ObjectHideFlags: 0

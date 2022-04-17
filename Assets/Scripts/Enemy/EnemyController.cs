@@ -109,7 +109,7 @@ public class EnemyController : MonoBehaviour, IController
             if(alertReported)
             {
                 // Return search area during alert.
-                return GameManager.Instance.EnemyAlertController.SearchArea;
+                return GameManager.Instance.AlertController.SearchArea;
             }
             else
             {

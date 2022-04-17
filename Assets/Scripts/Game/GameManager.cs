@@ -1,19 +1,19 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(EventManager))]
-[RequireComponent(typeof(EnemyAlertController))]
+[RequireComponent(typeof(AlertController))]
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField]
     private GameObject player;
 
     private EventManager events;
-    private EnemyAlertController alertController;
+    private AlertController alertController;
 
     void Start()
     {
         events = GetComponent<EventManager>();
-        alertController = GetComponent<EnemyAlertController>();
+        alertController = GetComponent<AlertController>();
     }
 
     public GameObject Player
@@ -26,7 +26,7 @@ public class GameManager : Singleton<GameManager>
         get { return events; }
     }
 
-    public EnemyAlertController EnemyAlertController
+    public AlertController AlertController
     {
         get { return alertController; }
     }

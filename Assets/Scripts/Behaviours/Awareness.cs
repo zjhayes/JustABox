@@ -5,7 +5,7 @@ using UnityEngine;
 public class Awareness : MonoBehaviour
 {
     [SerializeField]
-    private float awareDistance = 10.0f;
+    private float awareDistance = 25.0f;
     [SerializeField]
     private float sightOffset = 0;
     [SerializeField]
@@ -24,26 +24,19 @@ public class Awareness : MonoBehaviour
 
     void Update()
     {
-        // Scan for player every x (scanInterval) frames.
+        // Scan for detectable every x (scanInterval) frames.
         if(Time.frameCount % scanInterval == 0)
         {
-            canSeePlayer = ScanForPlayer();
+            ScanSight();
         }
     }
 
-    private bool ScanForPlayer()
+    private void ScanSight()
     {
-        List<Transform> playerInView = Scan(PLAYER_TAG, sightOffset, sightStartAngle, sightStepAngle);
-        if(playerInView.Count > 0)
-        {
-            Vector3 playerPosition = playerInView[0].position;
-            playerLastPosition = new Vector3(playerPosition.x,playerPosition.y,playerPosition.z);
-            return true;
-        }
-        return false;
+        Scan(sightOffset, sightStartAngle, sightStepAngle);
     }
     
-    private List<Transform> Scan(string tag, float scanOffset, float startAngleOffset, float stepAngleOffset)
+    private void Scan(float scanOffset, float startAngleOffset, float stepAngleOffset)
     {
         Quaternion startingAngle = Quaternion.AngleAxis(startAngleOffset, Vector3.up);
         Quaternion stepAngle = Quaternion.AngleAxis(stepAngleOffset, Vector3.up);
@@ -57,10 +50,10 @@ public class Awareness : MonoBehaviour
         {
             if(Physics.Raycast(position, forward, out hit, awareDistance))
             {
-                if(hit.collider.tag == tag)
+                if(hit.collider.GetComponent<Detectable>())
                 {
                     Debug.DrawRay(position, forward * hit.distance, Color.red);
-                    hits.Add(hit.collider.transform);
+                    hit.collider.GetComponent<Detectable>().Action(GetComponent<IController>());
                 }
             }
             else
@@ -69,7 +62,6 @@ public class Awareness : MonoBehaviour
             }
             forward = stepAngle * forward;
         }
-        return hits;
     }
 
     public Vector3 PlayerLastPosition { get { return playerLastPosition; } }

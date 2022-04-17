@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAlertController : MonoBehaviour, IController
+public class AlertController : MonoBehaviour, IController
 {
     [SerializeField]
     private float alertTime = 9.9f;
     private float currentTime;
     private Vector3 searchArea;
 
-    private StateContext<EnemyAlertController> stateContext;
+    private StateContext<AlertController> stateContext;
 
     void Start()
     {
-        stateContext = new StateContext<EnemyAlertController>(this);
+        stateContext = new StateContext<AlertController>(this);
         stateContext.Transition<NormalState>();
         currentTime = alertTime;
     }

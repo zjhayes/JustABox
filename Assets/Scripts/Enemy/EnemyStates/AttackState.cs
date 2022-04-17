@@ -31,7 +31,7 @@ public class AttackState : MonoBehaviour, IState<EnemyController>
             if(controller.AlertReported)
             {
                 // Reset alert.
-                GameManager.Instance.EnemyAlertController.Reset(controller.Awareness.PlayerLastPosition);
+                GameManager.Instance.AlertController.Reset(controller.Awareness.PlayerLastPosition);
             }
         }
         
@@ -43,7 +43,7 @@ public class AttackState : MonoBehaviour, IState<EnemyController>
         controller.Stop();
 
         // TODO: add attack system.
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
 
         if(controller.Awareness.CanSeePlayer && ++numberOfAttacks > MAX_ATTACKS) 
         {

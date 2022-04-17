@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public class AlertState : MonoBehaviour, IState<EnemyAlertController>
+public class AlertState : MonoBehaviour, IState<AlertController>
 {
-    private EnemyAlertController controller;
+    private AlertController controller;
     
-    public void Handle(EnemyAlertController _controller)
+    public void Handle(AlertController _controller)
     {
         controller = _controller;
     }

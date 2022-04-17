@@ -27,10 +27,10 @@ public class ReportState : MonoBehaviour, IState<EnemyController>
     private IEnumerator WaitAndUpdateGlobalAlert()
     {
         controller.Stop();
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
         Debug.Log("Reported.");
         // Set global alert.
-        GameManager.Instance.EnemyAlertController.Alert(controller.Awareness.PlayerLastPosition);
+        GameManager.Instance.AlertController.Alert(controller.Awareness.PlayerLastPosition);
         // Resume pursuit.
         controller.Move();
         controller.Pursue();

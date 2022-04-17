@@ -286,11 +286,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AgentBox
       objectReference: {fileID: 0}
-    - target: {fileID: 2624976518864608847, guid: a589ceeb4009943bda180adefcd42630,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a589ceeb4009943bda180adefcd42630, type: 3}
 --- !u!4 &582630346 stripped
