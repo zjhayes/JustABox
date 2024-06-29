@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour, IGameManager
     [SerializeField]
     private InputManager input;
     [SerializeField]
+    private UIManager ui;
+    [SerializeField]
     private EventManager events;
     [SerializeField]
     private EnemyAlertController alertController;
@@ -32,6 +34,11 @@ public class GameManager : MonoBehaviour, IGameManager
     public InputManager Input
     {
         get { return input; }
+    }
+
+    public UIManager UI
+    {
+        get { return ui; }
     }
 
     public CameraController Camera

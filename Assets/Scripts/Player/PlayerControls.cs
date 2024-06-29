@@ -134,6 +134,54 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Surveillance"",
+            ""id"": ""2292c5ec-16d4-42f7-bae8-4e32cc38e2dd"",
+            ""actions"": [
+                {
+                    ""name"": ""NextCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""9744ae90-e2cf-4eb7-9c50-c984a1c3e674"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LastCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""deb150f4-8178-452a-9738-0c87924bc971"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""178caa70-5196-48da-8789-7d920f9a966d"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6c3136de-8ec7-41bb-b4e8-95f17e307615"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LastCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -143,6 +191,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_Camera = m_Player.FindAction("Camera", throwIfNotFound: true);
+        // Surveillance
+        m_Surveillance = asset.FindActionMap("Surveillance", throwIfNotFound: true);
+        m_Surveillance_NextCamera = m_Surveillance.FindAction("NextCamera", throwIfNotFound: true);
+        m_Surveillance_LastCamera = m_Surveillance.FindAction("LastCamera", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -247,10 +299,56 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Surveillance
+    private readonly InputActionMap m_Surveillance;
+    private ISurveillanceActions m_SurveillanceActionsCallbackInterface;
+    private readonly InputAction m_Surveillance_NextCamera;
+    private readonly InputAction m_Surveillance_LastCamera;
+    public struct SurveillanceActions
+    {
+        private @PlayerControls m_Wrapper;
+        public SurveillanceActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @NextCamera => m_Wrapper.m_Surveillance_NextCamera;
+        public InputAction @LastCamera => m_Wrapper.m_Surveillance_LastCamera;
+        public InputActionMap Get() { return m_Wrapper.m_Surveillance; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(SurveillanceActions set) { return set.Get(); }
+        public void SetCallbacks(ISurveillanceActions instance)
+        {
+            if (m_Wrapper.m_SurveillanceActionsCallbackInterface != null)
+            {
+                @NextCamera.started -= m_Wrapper.m_SurveillanceActionsCallbackInterface.OnNextCamera;
+                @NextCamera.performed -= m_Wrapper.m_SurveillanceActionsCallbackInterface.OnNextCamera;
+                @NextCamera.canceled -= m_Wrapper.m_SurveillanceActionsCallbackInterface.OnNextCamera;
+                @LastCamera.started -= m_Wrapper.m_SurveillanceActionsCallbackInterface.OnLastCamera;
+                @LastCamera.performed -= m_Wrapper.m_SurveillanceActionsCallbackInterface.OnLastCamera;
+                @LastCamera.canceled -= m_Wrapper.m_SurveillanceActionsCallbackInterface.OnLastCamera;
+            }
+            m_Wrapper.m_SurveillanceActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @NextCamera.started += instance.OnNextCamera;
+                @NextCamera.performed += instance.OnNextCamera;
+                @NextCamera.canceled += instance.OnNextCamera;
+                @LastCamera.started += instance.OnLastCamera;
+                @LastCamera.performed += instance.OnLastCamera;
+                @LastCamera.canceled += instance.OnLastCamera;
+            }
+        }
+    }
+    public SurveillanceActions @Surveillance => new SurveillanceActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnCamera(InputAction.CallbackContext context);
+    }
+    public interface ISurveillanceActions
+    {
+        void OnNextCamera(InputAction.CallbackContext context);
+        void OnLastCamera(InputAction.CallbackContext context);
     }
 }

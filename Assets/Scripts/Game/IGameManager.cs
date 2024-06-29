@@ -8,6 +8,7 @@ public interface IGameManager : IService
     public EventManager Events { get; }
 
     public InputManager Input { get; }
+    public UIManager UI { get; }
 
     public CameraController Camera { get; }
 

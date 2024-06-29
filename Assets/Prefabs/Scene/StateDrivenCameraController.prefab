@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0.12581953, y: -0.00000011826192, z: -0.000000014998854, w: 0.99205315}
   m_LocalPosition: {x: -2.2021074, y: -3.7045145, z: 11.167973}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1898401227614588574}
   m_Father: {fileID: 1898401228014873988}
@@ -62,7 +63,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.3088953, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -108,8 +109,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1898401227504020478}
   m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: -2.2470193, y: 2.5487504, z: 3.235405}
+  m_LocalPosition: {x: -2.2470193, y: 2.5487504, z: 5.2354126}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1898401227690604463}
   m_Father: {fileID: 1898401228014873988}
@@ -139,12 +141,12 @@ MonoBehaviour:
     FieldOfView: 79.15
     OrthographicSize: 10
     NearClipPlane: 0.1
-    FarClipPlane: 5000
+    FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.3088953, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -182,6 +184,7 @@ Transform:
   m_LocalRotation: {x: 0.050181832, y: -0.901823, z: 0.10902343, w: -0.41510373}
   m_LocalPosition: {x: 38.360565, y: -11.120033, z: -25.389072}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1898401227016350190}
   m_RootOrder: 0
@@ -261,6 +264,7 @@ Transform:
   m_LocalRotation: {x: 0.050181832, y: -0.901823, z: 0.10902343, w: -0.41510373}
   m_LocalPosition: {x: 41.07613, y: -24.542763, z: -24.121689}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1898401227504020476}
   m_RootOrder: 0
@@ -331,7 +335,6 @@ GameObject:
   - component: {fileID: 1898401228014873988}
   - component: {fileID: 1898401228014873991}
   - component: {fileID: 1898401228014873986}
-  - component: {fileID: 1898401228014873989}
   m_Layer: 0
   m_Name: StateDrivenCameraController
   m_TagString: Untagged
@@ -349,6 +352,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.2470193, y: 6.7325854, z: -72.296745}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1898401227504020476}
   - {fileID: 1898401227016350190}
@@ -407,7 +411,7 @@ MonoBehaviour:
     m_ParentHash: 756556552
 --- !u!95 &1898401228014873986
 Animator:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -420,19 +424,8 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1898401228014873989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1898401228014873990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ed151457e23f43a9ac12caa0d20c786, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

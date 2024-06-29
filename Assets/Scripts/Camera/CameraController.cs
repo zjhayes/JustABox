@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Animator))]
 public class CameraController : GameBehaviour
 {
     [SerializeField]
