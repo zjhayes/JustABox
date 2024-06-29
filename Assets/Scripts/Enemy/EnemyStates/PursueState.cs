@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PursueState : MonoBehaviour, IState<EnemyController>
+public class PursueState : GameBehaviour, IState<EnemyController>
 {
     private EnemyController controller;
 
@@ -30,7 +30,7 @@ public class PursueState : MonoBehaviour, IState<EnemyController>
             if(controller.AlertReported) // there's an active alert...
             {
                 // Reset active alerts.
-                GameManager.Instance.EnemyAlertController.Reset(controller.Awareness.PlayerLastPosition);
+                gameManager.EnemyAlert.Reset(controller.Awareness.PlayerLastPosition);
             }
             
             if(PlayerWithinAttackRange())

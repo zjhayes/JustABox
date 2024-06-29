@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class AttackState : MonoBehaviour, IState<EnemyController>
+public class AttackState : GameBehaviour, IState<EnemyController>
 {
     private EnemyController controller;
 
@@ -31,7 +29,7 @@ public class AttackState : MonoBehaviour, IState<EnemyController>
             if(controller.AlertReported)
             {
                 // Reset alert.
-                GameManager.Instance.EnemyAlertController.Reset(controller.Awareness.PlayerLastPosition);
+                gameManager.EnemyAlert.Reset(controller.Awareness.PlayerLastPosition);
             }
         }
         

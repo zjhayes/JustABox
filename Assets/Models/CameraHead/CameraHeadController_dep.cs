@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class CameraHeadController : MonoBehaviour, IController
+public class CameraHeadController : GameBehaviour, IController
 {
     [SerializeField]
     private float awareDistance = 10.0f;
@@ -37,7 +37,7 @@ public class CameraHeadController : MonoBehaviour, IController
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        player = GameManager.Instance.Player.transform;
+        player = gameManager.Player.transform;
         currentSearchTime = searchTime;
 
         agent.autoBraking = false;

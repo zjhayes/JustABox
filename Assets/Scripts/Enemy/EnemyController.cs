@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.AI;
+﻿using UnityEngine.AI;
 using UnityEngine;
 
 [RequireComponent(typeof(Awareness))]
 [RequireComponent(typeof(NavMeshAgent))]
-public class EnemyController : MonoBehaviour, IController
+public class EnemyController : GameBehaviour, IController
 {
     [SerializeField]
     private PatrolPath patrolPath;
@@ -109,7 +107,7 @@ public class EnemyController : MonoBehaviour, IController
             if(alertReported)
             {
                 // Return search area during alert.
-                return GameManager.Instance.EnemyAlertController.SearchArea;
+                return gameManager.EnemyAlert.SearchArea;
             }
             else
             {

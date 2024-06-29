@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class EnemyAlertController : MonoBehaviour, IController
+public class EnemyAlertController : GameBehaviour, IController
 {
     [SerializeField]
     private float alertTime = 9.9f;
@@ -22,7 +20,7 @@ public class EnemyAlertController : MonoBehaviour, IController
     {
         currentTime = alertTime;
         stateContext.Transition<NormalState>();
-        GameManager.Instance.Events.AllClear();
+        gameManager.Events.AllClear();
         Debug.Log("All Clear");
     }
 
@@ -30,7 +28,7 @@ public class EnemyAlertController : MonoBehaviour, IController
     {
         searchArea = playerLastPosition;
         stateContext.Transition<AlertState>();
-        GameManager.Instance.Events.Alert();
+        gameManager.Events.Alert();
         Debug.Log("Alert Reported");
     }
 
@@ -38,7 +36,7 @@ public class EnemyAlertController : MonoBehaviour, IController
     {
         searchArea = playerLastPosition;
         currentTime = alertTime;
-        GameManager.Instance.Events.ResetAlert();
+        gameManager.Events.ResetAlert();
     }
 
     public float AlertTime

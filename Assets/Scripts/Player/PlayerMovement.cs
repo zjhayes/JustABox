@@ -3,7 +3,7 @@ using UnityEngine.AI;
 using Cinemachine;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : GameBehaviour
 {
     [SerializeField]
     float walkingSpeed = 2.25f; // Half of runningSpeed for best animation.
@@ -24,12 +24,11 @@ public class PlayerMovement : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
 
         // Assign input controls to player movement.
-        InputManager.Instance.Controls.Player.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
-        InputManager.Instance.Controls.Player.Move.canceled += _ => Stop();
-        InputManager.Instance.Controls.Player.Run.performed += _ => Run();
-        InputManager.Instance.Controls.Player.Run.canceled += _ => Walk();
-        // TODO: Move view controls to own object.
-        InputManager.Instance.Controls.Player.Camera.performed += _ => SwitchView();
+        gameManager.Input.Controls.Player.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
+        gameManager.Input.Controls.Player.Move.canceled += _ => Stop();
+        gameManager.Input.Controls.Player.Run.performed += _ => Run();
+        gameManager.Input.Controls.Player.Run.canceled += _ => Walk();
+        gameManager.Input.Controls.Player.Camera.performed += _ => SwitchView();
     }
 
     void LateUpdate()

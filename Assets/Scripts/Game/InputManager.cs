@@ -1,13 +1,10 @@
-﻿using UnityEngine;
-using UnityEngine.InputSystem;
-
-public class InputManager : Singleton<InputManager>
+﻿
+public class InputManager : GameBehaviour
 {
     private PlayerControls controls;
 
-    override public void Awake() 
+    void Awake() 
     {
-        base.Awake();
         if(controls == null) { controls = new PlayerControls(); }
     }
 

@@ -2,17 +2,18 @@
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Animator))]
-public class CameraController : MonoBehaviour
+public class CameraController : GameBehaviour
 {
-    Animator animator;
+    [SerializeField]
+    private Animator cameraStateAnimator; // Controls state driven camera.
+
     const string TPC_STATE = "ThirdPersonCamera";
     const string FPC_STATE = "FirstPersonCamera";
     bool firstPerson = false;
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-        InputManager.Instance.Controls.Player.Camera.performed += _ => SwitchView();
+       gameManager.Input.Controls.Player.Camera.performed += _ => SwitchView();
     }
 
     void SwitchView()
@@ -21,11 +22,11 @@ public class CameraController : MonoBehaviour
 
         if(firstPerson)
         {
-            animator.Play(FPC_STATE);
+            cameraStateAnimator.Play(FPC_STATE);
         }
         else
         {
-            animator.Play(TPC_STATE);
+            cameraStateAnimator.Play(TPC_STATE);
         }
     }
 }

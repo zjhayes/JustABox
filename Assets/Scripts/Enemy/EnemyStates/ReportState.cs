@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ReportState : MonoBehaviour, IState<EnemyController>
+public class ReportState : GameBehaviour, IState<EnemyController>
 {
     private EnemyController controller;
 
@@ -30,7 +30,7 @@ public class ReportState : MonoBehaviour, IState<EnemyController>
         yield return new WaitForSeconds(5f);
         Debug.Log("Reported.");
         // Set global alert.
-        GameManager.Instance.EnemyAlertController.Alert(controller.Awareness.PlayerLastPosition);
+        gameManager.EnemyAlert.Alert(controller.Awareness.PlayerLastPosition);
         // Resume pursuit.
         controller.Move();
         controller.Pursue();
