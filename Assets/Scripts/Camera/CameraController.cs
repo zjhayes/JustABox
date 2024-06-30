@@ -1,30 +1,25 @@
 ﻿using UnityEngine;
+using Cinemachine;
 
 public class CameraController : GameBehaviour
 {
-    [SerializeField]
-    private Animator cameraStateAnimator; // Controls state driven camera.
+    private bool firstPerson = false;
 
-    const string TPC_STATE = "ThirdPersonCamera";
-    const string FPC_STATE = "FirstPersonCamera";
-    bool firstPerson = false;
+    public event Events.CameraEvent OnToggleView;
 
-    void Start()
+    private void Start()
     {
-       gameManager.Input.Controls.Player.Camera.performed += _ => SwitchView();
+       gameManager.Input.Controls.Camera.ToggleView.performed += _ => ToggleView();
     }
 
-    void SwitchView()
+    private void ToggleView()
     {
         firstPerson = !firstPerson;
+        OnToggleView?.Invoke();
+    }
 
-        if(firstPerson)
-        {
-            cameraStateAnimator.Play(FPC_STATE);
-        }
-        else
-        {
-            cameraStateAnimator.Play(TPC_STATE);
-        }
+    public bool IsFirstPerson
+    {
+        get { return firstPerson; }
     }
 }

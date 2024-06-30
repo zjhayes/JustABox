@@ -125,6 +125,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 9dc7fe765ca5e49679a388d5145a1905, type: 2}
+--- !u!1 &18163533 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1506301512, guid: a589ceeb4009943bda180adefcd42630,
+    type: 3}
+  m_PrefabInstance: {fileID: 2624976518529206687}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &38411911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1341,6 +1347,8 @@ GameObject:
   - component: {fileID: 282318862}
   - component: {fileID: 282318863}
   - component: {fileID: 282318864}
+  - component: {fileID: 282318865}
+  - component: {fileID: 282318866}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -1377,7 +1385,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed151457e23f43a9ac12caa0d20c786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraStateAnimator: {fileID: 1126383767}
 --- !u!114 &282318864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1395,6 +1402,33 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 6f227d0dc38367b4982842adeaa9a0c1, type: 2}
+--- !u!114 &282318865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282318861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93940bc57db20e84dbad6e2284a61f02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraStateAnimator: {fileID: 1126383767}
+--- !u!114 &282318866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282318861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd2f0f024e4d344db8c1dc55ce07d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 18163533}
+  sensitivity: 10
 --- !u!4 &285044665 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1243651853469635725, guid: 11c9032a3a0e04c28b61d5abcc5e6ede,
@@ -3851,6 +3885,18 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!114 &726104068 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1898401227504020479, guid: 8c5b750d9ef694de899ac1347478a365,
+    type: 3}
+  m_PrefabInstance: {fileID: 1898401228123296862}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &729038929 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1517117110362332132, guid: f5a02e5198ae645378f30d825ea6e76b,
@@ -10532,6 +10578,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 893318821939282460, guid: c6cd3a931b00741728058e7b566cb524,
+        type: 3}
+      propertyPath: field of view
+      value: 79.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 893318821939282460, guid: c6cd3a931b00741728058e7b566cb524,
+        type: 3}
+      propertyPath: far clip plane
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 893318821939282462, guid: c6cd3a931b00741728058e7b566cb524,
         type: 3}
       propertyPath: m_Name
@@ -11026,6 +11082,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 282318862}
     m_Modifications:
+    - target: {fileID: 1898401227016350190, guid: 8c5b750d9ef694de899ac1347478a365,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1898401227016350191, guid: 8c5b750d9ef694de899ac1347478a365,
         type: 3}
       propertyPath: m_Enabled
@@ -11036,11 +11097,41 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 1150425317}
+    - target: {fileID: 1898401227504020476, guid: 8c5b750d9ef694de899ac1347478a365,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898401227504020476, guid: 8c5b750d9ef694de899ac1347478a365,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5487504
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898401227504020476, guid: 8c5b750d9ef694de899ac1347478a365,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.2354126
+      objectReference: {fileID: 0}
     - target: {fileID: 1898401227504020479, guid: 8c5b750d9ef694de899ac1347478a365,
         type: 3}
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 1506301513}
+    - target: {fileID: 1898401227504020479, guid: 8c5b750d9ef694de899ac1347478a365,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898401227504020479, guid: 8c5b750d9ef694de899ac1347478a365,
+        type: 3}
+      propertyPath: m_Priority
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898401227504020479, guid: 8c5b750d9ef694de899ac1347478a365,
+        type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 1.7777778
+      objectReference: {fileID: 0}
     - target: {fileID: 1898401228014873988, guid: 8c5b750d9ef694de899ac1347478a365,
         type: 3}
       propertyPath: m_RootOrder
@@ -11104,8 +11195,18 @@ PrefabInstance:
     - target: {fileID: 1898401228014873991, guid: 8c5b750d9ef694de899ac1347478a365,
         type: 3}
       propertyPath: m_ChildCameras.Array.size
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1898401228014873991, guid: 8c5b750d9ef694de899ac1347478a365,
+        type: 3}
+      propertyPath: m_ChildCameras.Array.data[0]
+      value: 
+      objectReference: {fileID: 726104068}
+    - target: {fileID: 1898401228014873991, guid: 8c5b750d9ef694de899ac1347478a365,
+        type: 3}
+      propertyPath: m_ChildCameras.Array.data[2]
+      value: 
+      objectReference: {fileID: 726104068}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c5b750d9ef694de899ac1347478a365, type: 3}
 --- !u!1001 &2127634298305352045

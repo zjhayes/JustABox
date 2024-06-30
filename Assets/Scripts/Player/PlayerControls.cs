@@ -44,15 +44,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Camera"",
-                    ""type"": ""Button"",
-                    ""id"": ""c42db727-c521-44ea-b76f-e8f7c8c8a342"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -121,17 +112,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""36389e7f-ad58-4420-9cf5-583d062683fc"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Camera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -182,6 +162,74 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Camera"",
+            ""id"": ""5839f2ce-048d-41f3-a001-5648ed901cec"",
+            ""actions"": [
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""6a9d9f8f-d178-4d85-897b-3b4f44d5c485"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ToggleView"",
+                    ""type"": ""Button"",
+                    ""id"": ""c2828dab-8108-4ca8-b325-d511d3a7cf73"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ControlFollowTarget"",
+                    ""type"": ""Button"",
+                    ""id"": ""b922431e-f31f-4994-a6b8-e5106cb89f56"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""e5e86509-56e6-46b3-9c76-f6f3a11341e7"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1ed8be29-a6ca-4e0c-a552-3b6f337566f7"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9797a578-a319-4735-8247-a6ad366522c1"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ControlFollowTarget"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -190,11 +238,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
-        m_Player_Camera = m_Player.FindAction("Camera", throwIfNotFound: true);
         // Surveillance
         m_Surveillance = asset.FindActionMap("Surveillance", throwIfNotFound: true);
         m_Surveillance_NextCamera = m_Surveillance.FindAction("NextCamera", throwIfNotFound: true);
         m_Surveillance_LastCamera = m_Surveillance.FindAction("LastCamera", throwIfNotFound: true);
+        // Camera
+        m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
+        m_Camera_MousePosition = m_Camera.FindAction("MousePosition", throwIfNotFound: true);
+        m_Camera_ToggleView = m_Camera.FindAction("ToggleView", throwIfNotFound: true);
+        m_Camera_ControlFollowTarget = m_Camera.FindAction("ControlFollowTarget", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -256,14 +308,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Run;
-    private readonly InputAction m_Player_Camera;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Run => m_Wrapper.m_Player_Run;
-        public InputAction @Camera => m_Wrapper.m_Player_Camera;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -279,9 +329,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Run.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
                 @Run.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
                 @Run.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
-                @Camera.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCamera;
-                @Camera.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCamera;
-                @Camera.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCamera;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -292,9 +339,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Run.started += instance.OnRun;
                 @Run.performed += instance.OnRun;
                 @Run.canceled += instance.OnRun;
-                @Camera.started += instance.OnCamera;
-                @Camera.performed += instance.OnCamera;
-                @Camera.canceled += instance.OnCamera;
             }
         }
     }
@@ -340,15 +384,69 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         }
     }
     public SurveillanceActions @Surveillance => new SurveillanceActions(this);
+
+    // Camera
+    private readonly InputActionMap m_Camera;
+    private ICameraActions m_CameraActionsCallbackInterface;
+    private readonly InputAction m_Camera_MousePosition;
+    private readonly InputAction m_Camera_ToggleView;
+    private readonly InputAction m_Camera_ControlFollowTarget;
+    public struct CameraActions
+    {
+        private @PlayerControls m_Wrapper;
+        public CameraActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MousePosition => m_Wrapper.m_Camera_MousePosition;
+        public InputAction @ToggleView => m_Wrapper.m_Camera_ToggleView;
+        public InputAction @ControlFollowTarget => m_Wrapper.m_Camera_ControlFollowTarget;
+        public InputActionMap Get() { return m_Wrapper.m_Camera; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CameraActions set) { return set.Get(); }
+        public void SetCallbacks(ICameraActions instance)
+        {
+            if (m_Wrapper.m_CameraActionsCallbackInterface != null)
+            {
+                @MousePosition.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnMousePosition;
+                @ToggleView.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnToggleView;
+                @ToggleView.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnToggleView;
+                @ToggleView.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnToggleView;
+                @ControlFollowTarget.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnControlFollowTarget;
+                @ControlFollowTarget.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnControlFollowTarget;
+                @ControlFollowTarget.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnControlFollowTarget;
+            }
+            m_Wrapper.m_CameraActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
+                @ToggleView.started += instance.OnToggleView;
+                @ToggleView.performed += instance.OnToggleView;
+                @ToggleView.canceled += instance.OnToggleView;
+                @ControlFollowTarget.started += instance.OnControlFollowTarget;
+                @ControlFollowTarget.performed += instance.OnControlFollowTarget;
+                @ControlFollowTarget.canceled += instance.OnControlFollowTarget;
+            }
+        }
+    }
+    public CameraActions @Camera => new CameraActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
-        void OnCamera(InputAction.CallbackContext context);
     }
     public interface ISurveillanceActions
     {
         void OnNextCamera(InputAction.CallbackContext context);
         void OnLastCamera(InputAction.CallbackContext context);
+    }
+    public interface ICameraActions
+    {
+        void OnMousePosition(InputAction.CallbackContext context);
+        void OnToggleView(InputAction.CallbackContext context);
+        void OnControlFollowTarget(InputAction.CallbackContext context);
     }
 }

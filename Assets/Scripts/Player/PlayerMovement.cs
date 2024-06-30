@@ -6,20 +6,19 @@ using Cinemachine;
 public class PlayerMovement : GameBehaviour
 {
     [SerializeField]
-    float walkingSpeed = 2.25f; // Half of runningSpeed for best animation.
+    private float walkingSpeed = 2.25f; // Half of runningSpeed for best animation.
     [SerializeField]
-    float runningSpeed = 10f;
+    private float runningSpeed = 10f;
     [SerializeField]
-    CinemachineBrain cameraBrain;
+    private CinemachineBrain cameraBrain;
 
-    NavMeshAgent agent;
-    bool isRunning = false;
-    float moveVerticle = 0.0f;
-    float moveHorizontal = 0.0f;
+    private NavMeshAgent agent;
+    private bool isFirstPerson = false;
+    private bool isRunning = false;
+    private float moveVerticle = 0.0f;
+    private float moveHorizontal = 0.0f;
 
-    bool firstPerson = false;
-
-    void Start()
+    private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
 
@@ -28,27 +27,24 @@ public class PlayerMovement : GameBehaviour
         gameManager.Input.Controls.Player.Move.canceled += _ => Stop();
         gameManager.Input.Controls.Player.Run.performed += _ => Run();
         gameManager.Input.Controls.Player.Run.canceled += _ => Walk();
-        gameManager.Input.Controls.Player.Camera.performed += _ => SwitchView();
+
+        // Listen to changes in camera state.
+        gameManager.Camera.OnToggleView += OnCameraToggled;
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
-        if(!firstPerson)
-        {
-            MoveThirdPerson();
-        }
-        else
+        if(isFirstPerson)
         {
             MoveFirstPerson();
         }
+        else
+        {
+            MoveThirdPerson();
+        }
     }
 
-    void SwitchView()
-    {
-        firstPerson = !firstPerson;
-    }
-
-    void MoveThirdPerson()
+    private void MoveThirdPerson()
     {
         Vector3 movement = new Vector3(moveHorizontal, 0f, moveVerticle);
         Vector3 moveDestination = transform.position + movement;
@@ -56,7 +52,7 @@ public class PlayerMovement : GameBehaviour
         agent.destination = moveDestination;
     }
 
-    void MoveFirstPerson()
+    private void MoveFirstPerson()
     {
         // Get currently active camera. TO DO: Set with listener. Get from game manager.
         CinemachineStateDrivenCamera cameraDriver = (CinemachineStateDrivenCamera) cameraBrain.ActiveVirtualCamera;
@@ -79,31 +75,31 @@ public class PlayerMovement : GameBehaviour
         agent.destination = moveDestination;
     }
 
-    void Move(Vector2 direction)
+    private void Move(Vector2 direction)
     {
         moveVerticle = direction.y;
         moveHorizontal = direction.x;
     }
 
-    void Stop()
+    private void Stop()
     {
         moveVerticle = 0f;
         moveHorizontal = 0f;
     }
 
-    void ToggleRun()
-    {
-        isRunning = !isRunning;
-    }
-
-    void Run()
+    private void Run()
     {
         isRunning = true;
     }
 
-    void Walk()
+    private void Walk()
     {
         isRunning = false;
+    }
+
+    private void OnCameraToggled()
+    {
+        isFirstPerson = gameManager.Camera.IsFirstPerson;
     }
     
     public float Speed
