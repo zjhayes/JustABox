@@ -1429,6 +1429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 18163533}
   sensitivity: 10
+  maxOffset: 2
 --- !u!4 &285044665 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1243651853469635725, guid: 11c9032a3a0e04c28b61d5abcc5e6ede,
@@ -10449,11 +10450,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraHead
       objectReference: {fileID: 0}
-    - target: {fileID: 829005852619297973, guid: 7653164ae44af4cf4a269fd4b103d110,
-        type: 3}
-      propertyPath: m_AutoBraking
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 829005852619297974, guid: 7653164ae44af4cf4a269fd4b103d110,
         type: 3}
       propertyPath: m_RootOrder
@@ -10919,6 +10915,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SurveillanceCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275592373893902119, guid: 1de10a916fda54969b621e228f7120f8,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9968546
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275592373893902119, guid: 1de10a916fda54969b621e228f7120f8,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.07925299
+      objectReference: {fileID: 0}
+    - target: {fileID: 8050862101474768147, guid: 1de10a916fda54969b621e228f7120f8,
+        type: 3}
+      propertyPath: priority
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8050862101474768147, guid: 1de10a916fda54969b621e228f7120f8,
+        type: 3}
+      propertyPath: pauseDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8050862101474768147, guid: 1de10a916fda54969b621e228f7120f8,
+        type: 3}
+      propertyPath: rotationSpeed
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1de10a916fda54969b621e228f7120f8, type: 3}

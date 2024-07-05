@@ -21,9 +21,17 @@ public class SurveillanceViewController : GameBehaviour
         EnableCurrentCamera();
     }
 
-    public void AddCamera(SurveillanceCameraController surveillanceCamera)
+    public void AddCamera(SurveillanceCameraController surveillanceCamera, int? priority = null)
     {
-        surveillanceCameras.Add(surveillanceCamera);
+        if (priority.HasValue)
+        {
+            int index = Mathf.Clamp(priority.Value, 0, surveillanceCameras.Count);
+            surveillanceCameras.Insert(index, surveillanceCamera);
+        }
+        else
+        {
+            surveillanceCameras.Add(surveillanceCamera);
+        }
     }
 
     private void NextCamera()

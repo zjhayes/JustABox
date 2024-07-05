@@ -156,6 +156,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   surveillanceCamera: {fileID: 1780704244537882437}
+  cameraBody: {fileID: 7011044533145066804}
+  rotationSpeed: 1
+  rotationAngle: 45
+  pauseDuration: 1
 --- !u!1001 &1327953642048783421
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -243,6 +247,12 @@ PrefabInstance:
 --- !u!4 &6275592373893902119 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 3df29c1327a604f389d921aaff213dcb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1327953642048783421}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7011044533145066804 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 3df29c1327a604f389d921aaff213dcb,
     type: 3}
   m_PrefabInstance: {fileID: 1327953642048783421}
   m_PrefabAsset: {fileID: 0}

@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using Cinemachine;
-
+﻿
 public class CameraController : GameBehaviour
 {
     private bool firstPerson = false;
