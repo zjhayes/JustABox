@@ -119,6 +119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1327953643025521344}
   - component: {fileID: 8050862101474768147}
+  - component: {fileID: 1731825110644212456}
   m_Layer: 0
   m_Name: SurveillanceCamera
   m_TagString: Untagged
@@ -157,9 +158,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   surveillanceCamera: {fileID: 1780704244537882437}
   cameraBody: {fileID: 7011044533145066804}
+  cameraDetection: {fileID: 1731825110644212456}
   rotationSpeed: 1
   rotationAngle: 45
   pauseDuration: 1
+  priority: 0
+--- !u!114 &1731825110644212456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327953643025521347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c37bc1bd2b23e8041bf4b707e05638b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  surveillanceCamera: {fileID: 1780704244537882437}
+  detectionRange: 20
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1001 &1327953642048783421
 PrefabInstance:
   m_ObjectHideFlags: 0

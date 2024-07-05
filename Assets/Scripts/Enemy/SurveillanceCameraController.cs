@@ -1,12 +1,14 @@
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyCameraDetection))]
 public class SurveillanceCameraController : GameBehaviour
 {
     [SerializeField]
     private Camera surveillanceCamera;
     [SerializeField]
     private GameObject cameraBody;
-
+    [SerializeField]
+    EnemyCameraDetection cameraDetection;
     [SerializeField]
     private float rotationSpeed = 1f; // Speed of the back and forth rotation
     [SerializeField]
@@ -21,15 +23,31 @@ public class SurveillanceCameraController : GameBehaviour
     private float pauseTime = 0f;
     private bool isPausing = false;
     private bool isRotatingForward = true;
+    private bool playerDetected = false;
+    private Vector3 originalPosition;
+    private Quaternion originalRotation;
+    private float defaultFOV = 60f;
 
     private void Awake()
     {
         gameManager.UI.SurveillanceView.AddCamera(this, priority);
+        cameraDetection.OnPlayerDetected += OnPlayerDetected;
+        cameraDetection.OnPlayerLost += OnPlayerLost;
+        defaultFOV = surveillanceCamera.fieldOfView;
+        originalPosition = cameraBody.transform.position;
+        originalRotation = cameraBody.transform.rotation;
     }
 
     private void Update()
     {
-        RotateCameraBody();
+        if(!playerDetected)
+        {
+            RotateCameraBody();
+        }
+        else
+        {
+            FollowPlayer();
+        }
     }
 
     private void RotateCameraBody()
@@ -56,6 +74,28 @@ public class SurveillanceCameraController : GameBehaviour
         cameraBody.transform.localRotation = Quaternion.Euler(cameraBody.transform.localRotation.x, angle, cameraBody.transform.localRotation.y);
 
         rotationTime += Time.deltaTime;
+    }
+
+    private void FollowPlayer()
+    {
+        cameraBody.transform.LookAt(gameManager.Player.transform.position);
+    }
+
+    private void OnPlayerDetected()
+    {
+        playerDetected = true;
+        // Zoom in the camera
+        surveillanceCamera.fieldOfView = 30f;
+    }
+
+    private void OnPlayerLost()
+    {
+        playerDetected = false;
+        // Reset the camera zoom
+        surveillanceCamera.fieldOfView = defaultFOV;
+        cameraBody.transform.position = originalPosition;
+        cameraBody.transform.rotation = originalRotation;
+
     }
 
 
