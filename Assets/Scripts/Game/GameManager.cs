@@ -3,7 +3,7 @@
 public class GameManager : MonoBehaviour, IGameManager
 {
     [SerializeField]
-    private GameObject player;
+    private PlayerManager player;
     [SerializeField]
     private CameraController cameraController;
     [SerializeField]
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour, IGameManager
         ServiceInjector.Resolve<IGameManager, GameBehaviour>(this);
     }
 
-    public GameObject Player
+    public PlayerManager Player
     {
         get { return player; }
     }

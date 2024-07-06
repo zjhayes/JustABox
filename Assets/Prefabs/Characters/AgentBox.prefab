@@ -388,6 +388,7 @@ GameObject:
   - component: {fileID: 2624976518864608843}
   - component: {fileID: 2624976518864608846}
   - component: {fileID: 1276715857}
+  - component: {fileID: 7316131724974324908}
   m_Layer: 0
   m_Name: AgentBox
   m_TagString: Player
@@ -476,6 +477,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3, y: 3, z: 3}
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!114 &7316131724974324908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2624976518864608847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2961bfa120fd044e963d0a10a2cb3d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followTarget: {fileID: 1506301513}
 --- !u!1 &3110929775652452346
 GameObject:
   m_ObjectHideFlags: 0

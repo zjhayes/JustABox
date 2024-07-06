@@ -3,7 +3,7 @@ using UnityEngine;
 public interface IGameManager : IService
 {
 
-    public GameObject Player { get; }
+    public PlayerManager Player { get; }
 
     public EventManager Events { get; }
 

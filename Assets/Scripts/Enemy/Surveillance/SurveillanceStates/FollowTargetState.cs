@@ -22,7 +22,7 @@ public class FollowTargetState : SurveillanceState
 
     private void FollowPlayer()
     {
-        controller.CameraBody.transform.LookAt(gameManager.Player.transform.position);
+        controller.CameraBody.transform.LookAt(gameManager.Player.FollowTarget.transform.position);
     }
 
     private void Zoom()
