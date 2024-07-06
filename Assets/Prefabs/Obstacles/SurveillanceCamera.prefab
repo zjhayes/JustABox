@@ -159,10 +159,12 @@ MonoBehaviour:
   surveillanceCamera: {fileID: 1780704244537882437}
   cameraBody: {fileID: 7011044533145066804}
   cameraDetection: {fileID: 1731825110644212456}
+  zoomMultiplier: 2
   rotationSpeed: 1
   rotationAngle: 45
   pauseDuration: 1
   priority: 0
+  defaultState: 1
 --- !u!114 &1731825110644212456
 MonoBehaviour:
   m_ObjectHideFlags: 0

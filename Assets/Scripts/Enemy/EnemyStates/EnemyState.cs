@@ -1,14 +1,14 @@
 using HierarchicalStateMachine;
 
-public class EnemyState : BaseState
+public class EnemyState : BaseState<EnemyState>
 {
     protected EnemyController controller;
     protected IGameManager gameManager;
 
-    protected EnemyState(EnemyController _controller, IGameManager _gameManager): base(_controller.Context as IStateMachine)
+    protected EnemyState(EnemyController controller, IGameManager gameManager): base()
     {
-        controller = _controller;
-        gameManager = _gameManager;
+        this.controller = controller;
+        this.gameManager = gameManager;
     }
 
     protected override void InitializeSubState(){}
