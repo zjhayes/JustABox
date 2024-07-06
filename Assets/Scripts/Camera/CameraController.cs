@@ -1,31 +1,23 @@
-﻿using UnityEngine;
-using UnityEngine.InputSystem;
-
-[RequireComponent(typeof(Animator))]
-public class CameraController : MonoBehaviour
+﻿
+public class CameraController : GameBehaviour
 {
-    Animator animator;
-    const string TPC_STATE = "ThirdPersonCamera";
-    const string FPC_STATE = "FirstPersonCamera";
-    bool firstPerson = false;
+    private bool firstPerson = false;
 
-    void Start()
+    public event Events.CameraEvent OnToggleView;
+
+    private void Start()
     {
-        animator = GetComponent<Animator>();
-        InputManager.Instance.Controls.Player.Camera.performed += _ => SwitchView();
+       gameManager.Input.Controls.Camera.ToggleView.performed += _ => ToggleView();
     }
 
-    void SwitchView()
+    private void ToggleView()
     {
         firstPerson = !firstPerson;
+        OnToggleView?.Invoke();
+    }
 
-        if(firstPerson)
-        {
-            animator.Play(FPC_STATE);
-        }
-        else
-        {
-            animator.Play(TPC_STATE);
-        }
+    public bool IsFirstPerson
+    {
+        get { return firstPerson; }
     }
 }

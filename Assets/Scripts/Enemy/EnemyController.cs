@@ -1,120 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.AI;
-using UnityEngine;
-
-[RequireComponent(typeof(Awareness))]
-[RequireComponent(typeof(NavMeshAgent))]
-public class EnemyController : MonoBehaviour, IController
+﻿
+public class EnemyController : GameBehaviour, IController
 {
-    [SerializeField]
-    private PatrolPath patrolPath;
+    private EnemyContext context;
 
-    private Awareness awareness;
-    private NavMeshAgent agent;
-    private StateContext<EnemyController> stateContext;
-    private bool alertReported = false;
-
-    void Start()
+    private void Awake()
     {
-        awareness = GetComponent<Awareness>();
-        agent = GetComponent<NavMeshAgent>();
-        stateContext = new StateContext<EnemyController>(this);
-        
-        agent.autoBraking = false;
-        alertReported = false;
-
-        Patrol();
+        context = new EnemyContext(this, gameManager);
     }
 
-    void OnEnable()
+    private void Update()
     {
-        EventBus.Subscribe(EventType.OnAlert, OnAlert);
-        EventBus.Subscribe(EventType.OnAllClear, OnAllClear);
+        context.CurrentState.Update();
     }
 
-    void OnDisable()
+    public EnemyContext Context
     {
-        EventBus.Unsubscribe(EventType.OnAlert, OnAlert);
-        EventBus.Unsubscribe(EventType.OnAllClear, OnAllClear);
+        get { return context; }
     }
 
-    private void OnAlert()
-    {
-        alertReported = true;
-        Pursue();
-    }
-
-    private void OnAllClear()
-    {
-        Patrol();
-    }
-
-    public void Patrol()
-    {
-        alertReported = false;
-        stateContext.Transition<PatrolState>();
-    }
-
-    public void Pursue()
-    {
-        stateContext.Transition<PursueState>();
-    }
-
-    public void Search()
-    {
-        stateContext.Transition<SearchState>();
-    }
-
-    public void ReportAlert()
-    {
-        stateContext.Transition<ReportState>();
-        alertReported = true;
-    }
-
-    public void Attack()
-    {
-        stateContext.Transition<AttackState>();
-    }
-
-    public void LookAtPlayer()
-    {
-        transform.LookAt(awareness.PlayerLastPosition);
-    }
-
-    public void SetDestination(Vector3 destination)
-    {
-        agent.destination = destination;
-    }
-
-    public void Move()
-    {
-        agent.isStopped = false;
-    }
-
-    public void Stop()
-    {
-        agent.isStopped = true;
-    }
-
-    public NavMeshAgent Agent { get { return agent; } }
-    public Awareness Awareness { get { return awareness; } }
-    public PatrolPath PatrolPath { get { return patrolPath; } }
-    public bool AlertReported { get { return alertReported; }}
-
-    public Vector3 PlayerLastKnownPosition
-    {
-        get
-        {
-            if(alertReported)
-            {
-                // Return search area during alert.
-                return GameManager.Instance.EnemyAlertController.SearchArea;
-            }
-            else
-            {
-                return awareness.PlayerLastPosition;
-            }
-        }
-    }
 }
